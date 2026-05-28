@@ -62,15 +62,12 @@ impl Tool for Cli {
             stdout_lock = io::stdout().lock();
             &mut stdout_lock
         };
-        match self.input {
-            Some(ref p) => {
-                let f = File::open(p).map_err(RsomicsError::Io)?;
-                cluster(f, out, self.dist, self.strand)
-            }
-            None => {
-                let stdin = io::stdin();
-                cluster(stdin.lock(), out, self.dist, self.strand)
-            }
+        if let Some(ref p) = self.input {
+            let f = File::open(p).map_err(RsomicsError::Io)?;
+            cluster(f, out, self.dist, self.strand)
+        } else {
+            let stdin = io::stdin();
+            cluster(stdin.lock(), out, self.dist, self.strand)
         }
     }
 }
