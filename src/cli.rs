@@ -13,13 +13,6 @@ pub const META: ToolMeta = ToolMeta {
     version: env!("CARGO_PKG_VERSION"),
 };
 
-/// Cluster overlapping BED intervals — bedtools cluster equivalent.
-///
-/// Reads a coordinate-sorted BED file and appends a 1-based cluster-ID column
-/// to each record. Two records belong to the same cluster when they overlap
-/// (or, with -d, when their gap is ≤ d bases).
-///
-/// Input must be sorted by chromosome then start (and by strand when using -s).
 #[derive(Parser, Debug)]
 #[command(name = "rsomics-bed-cluster", disable_help_flag = true)]
 pub struct Cli {
